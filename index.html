@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>بوابة الموارد البشرية</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,7 +13,7 @@
   <header id="header">
     <div class="container navbar">
       <div class="logo">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -23,28 +22,51 @@
         </svg>
         بوابة <span>الموارد البشرية</span>
       </div>
-
       <div class="nav-actions">
-        <a class="nav-link" href="index.html">الصفحة الرئيسية</a>
-        <a class="nav-link" href="#announcements">الإعلانات</a>
-        <a class="nav-link" href="#booking">حجز القاعات</a>
-        <a class="nav-link nav-tax" href="tax.html">احتساب الضريبة والضمان</a>
-        <button class="btn btn-dark btn-sm" type="button" onclick="openAdminLogin()">
-          دخول الادمن
-        </button>
+        <a class="nav-link" href="index.html">الرئيسية</a>
+        <a class="nav-link" href="tax.html">الضريبة والضمان</a>
+        <button class="btn btn-dark btn-sm" type="button" onclick="openAdminLogin()">دخول الأدمن</button>
       </div>
     </div>
   </header>
 
   <section class="hero" id="home">
+    <div class="hero-grid-bg"></div>
     <div class="hero-content">
       <div class="container">
-        <h1>مرحباً بك في بوابة الموارد البشرية</h1>
-        <p>كل شيء في صفحة واحدة.</p>
-        <div class="hero-buttons">
-          <a class="btn btn-primary" href="#announcements">أخر الأخبار</a>
-          <a class="btn btn-outline" href="#booking">حجز القاعات</a>
-          <a class="btn btn-outline" href="tax.html">احتساب الضريبة والضمان</a>
+        <div class="hero-inner">
+          <div class="hero-badge">
+            <span></span>
+            بوابة الموارد البشرية الداخلية
+          </div>
+          <h1>
+            مرحباً بك في<br>
+            <span class="highlight">بوابة الموارد البشرية</span>
+          </h1>
+          <p>كل ما تحتاجه في مكان واحد — الإعلانات، حجز القاعات، التقديم للوظائف، واحتساب الضريبة والضمان الاجتماعي.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#announcements">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              آخر الأخبار
+            </a>
+            <a class="btn btn-outline" href="#booking">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              حجز القاعات
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>٣</strong><span>خدمات متكاملة</span></div>
+            <div class="hero-stat"><strong>٢</strong><span>قاعة للحجز</span></div>
+            <div class="hero-stat"><strong>٢٤/٧</strong><span>متاح دائماً</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -52,7 +74,7 @@
 
   <section id="announcements">
     <div class="container">
-      <div class="section-title">
+      <div class="section-title reveal">
         <h2>لوحة الإعلانات</h2>
         <p>آخر التحديثات والتنبيهات الداخلية الخاصة بالشركة.</p>
       </div>
@@ -62,9 +84,13 @@
 
   <section class="portal-section" id="portal">
     <div class="container">
+      <div class="section-title reveal">
+        <h2>خدمات البوابة</h2>
+        <p>احجز قاعاتك وتقدم للوظائف بكل سهولة.</p>
+      </div>
       <div class="grid-2">
 
-        <div id="booking">
+        <div id="booking" class="reveal">
           <div class="card">
             <div class="card-head">
               <h3>حجز القاعات</h3>
@@ -72,13 +98,11 @@
             </div>
             <div class="card-body">
               <div class="booking-stack">
-
                 <div class="card booking-card booking-card-flat">
                   <div class="card-body">
                     <div class="booking-row">
                       <div class="icon-box">
-                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <rect x="3" y="4" width="18" height="18" rx="2"></rect>
                           <line x1="16" y1="2" x2="16" y2="6"></line>
                           <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -86,7 +110,7 @@
                         </svg>
                       </div>
                       <div class="booking-content">
-                        <h4>حجز القاعة الكبيرة</h4>
+                        <h4>القاعة الكبيرة</h4>
                         <p>للاجتماعات الرسمية والورش. اختر الموعد المناسب مباشرة من جدول الحجز.</p>
                         <div class="booking-actions">
                           <button class="btn btn-primary btn-sm" type="button" onclick="openCalendly('big')">حجز الآن</button>
@@ -95,23 +119,19 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="card booking-card booking-card-flat">
                   <div class="card-body">
                     <div class="booking-row">
                       <div class="icon-box small-room-icon">
-                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M3 21h18"></path>
                           <path d="M5 21V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14"></path>
-                          <path d="M9 21v-4"></path>
-                          <path d="M15 21v-4"></path>
-                          <path d="M9 9h6"></path>
-                          <path d="M9 13h6"></path>
+                          <path d="M9 21v-4"></path><path d="M15 21v-4"></path>
+                          <path d="M9 9h6"></path><path d="M9 13h6"></path>
                         </svg>
                       </div>
                       <div class="booking-content">
-                        <h4>حجز القاعة الصغيرة</h4>
+                        <h4>القاعة الصغيرة</h4>
                         <p>مناسبة للاجتماعات السريعة والمقابلات الفردية وحجز المواعيد القصيرة.</p>
                         <div class="booking-actions">
                           <button class="btn btn-primary btn-sm" type="button" onclick="openCalendly('small')">حجز الآن</button>
@@ -120,44 +140,37 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
 
-        <div id="apply">
-          <div class="card">
+        <div id="apply" class="reveal">
+          <div class="card" style="height:100%;">
             <div class="card-head">
-              <h3>التقديم للوظائف المتاحة حالياً</h3>
+              <h3>التقديم للوظائف المتاحة</h3>
               <span class="badge">Google Form</span>
             </div>
             <div class="card-body">
               <p class="apply-text">
-                هذا النموذج عام الى موظفي الشركة الرجاء عدم التواصل عن طريق الواتساب وارسال السيرة الذاتية او معلومات الشخص من خلال هذا النموذج وكذلك يمكن مشاركته مع الاشخاص القريبين.
+                هذا النموذج عام لموظفي الشركة. الرجاء عدم التواصل عن طريق الواتساب وإرسال السيرة الذاتية أو معلومات الشخص من خلال هذا النموذج، ويمكن مشاركته مع الأشخاص المقربين.
               </p>
-
               <a class="btn btn-primary btn-sm" id="applyFormBtn" href="#" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
                 تقديم الآن
               </a>
-            </div>
-          </div>
-        </div>
-
-        <div id="taxCalculator">
-          <div class="card tax-service-card">
-            <div class="card-head">
-              <h3>احتساب الضريبة والضمان</h3>
-              <span class="badge">Payroll</span>
-            </div>
-            <div class="card-body">
-              <p class="apply-text">
-                صفحة مخصصة لاحتساب ضريبة الدخل والضمان الاجتماعي للموظفين، مع ملخص تنفيذي وتفاصيل قابلة للطباعة.
-              </p>
-
-              <a class="btn btn-primary btn-sm" href="tax.html">
-                فتح صفحة الاحتساب
-              </a>
+              <div style="margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.07);">
+                <a href="tax.html" class="btn btn-outline" style="width:100%;justify-content:center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                  احتساب الضريبة والضمان الاجتماعي
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -170,7 +183,7 @@
     <div class="container info-container">
       <div class="section-title info-title">
         <h2 class="info-heading">معلومات التواصل</h2>
-        <p class="info-description">لا تتردوا بالتواصل معنا فنحن نعمل لأجلكم.</p>
+        <p class="info-description">لا تترددوا بالتواصل معنا، نحن نعمل لأجلكم.</p>
       </div>
     </div>
   </section>
@@ -182,7 +195,6 @@
         <div class="item">✉️ البريد: <a id="hrEmail" href="mailto:muntathar.satar@alamiyaco.com">muntathar.satar@alamiyaco.com</a></div>
         <div class="item">🕘 الدوام: السبت–الخميس (8:30–4:30)</div>
       </div>
-
       <div class="copyright">
         <p>جميع الحقوق محفوظة &copy; <span id="year"></span> قسم الموارد البشرية.</p>
       </div>
@@ -204,24 +216,13 @@
   <div class="modal" id="adminLoginModal" aria-hidden="true">
     <div class="modal-dialog admin-dialog" role="dialog" aria-modal="true">
       <div class="modal-head">
-        <h3>دخول الادمن</h3>
+        <h3>دخول الأدمن</h3>
         <button class="xbtn" type="button" onclick="closeAdminLogin()">✕</button>
       </div>
-
       <div class="admin-login-body">
-        <p class="admin-login-text">
-          الرجاء إدخال كلمة المرور للدخول إلى بوابة الأدمن.
-        </p>
-
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="أدخل كلمة المرور"
-          class="admin-password-input"
-        />
-
+        <p class="admin-login-text">الرجاء إدخال كلمة المرور للدخول إلى بوابة الأدمن.</p>
+        <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور" class="admin-password-input" />
         <div id="adminLoginError" class="admin-login-error"></div>
-
         <div class="admin-login-actions">
           <button class="btn btn-primary btn-sm" type="button" onclick="submitAdminLogin()">دخول</button>
           <button class="btn btn-outline-dark btn-sm" type="button" onclick="closeAdminLogin()">إلغاء</button>
@@ -231,5 +232,12 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>

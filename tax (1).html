@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>احتساب الضريبة والضمان | بوابة الموارد البشرية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+
+    .tax-main{padding-top:120px;padding-bottom:60px;background:var(--light-bg);min-height:100vh;}
+    .tax-hero{background:linear-gradient(135deg, rgba(44,62,80,.94), rgba(52,152,219,.72));color:#fff;border-radius:var(--border-radius);box-shadow:var(--shadow);padding:34px 28px;margin-bottom:24px;position:relative;overflow:hidden;}
+    .tax-hero::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.12);left:-80px;top:-80px;}
+    .tax-hero-content{position:relative;z-index:1;}
+    .tax-hero h1{font-size:2.25rem;line-height:1.35;font-weight:900;margin-bottom:12px;}
+    .tax-hero p{max-width:920px;font-size:1.04rem;font-weight:700;line-height:2;opacity:.96;margin-bottom:18px;}
+    .tax-meta{display:flex;flex-wrap:wrap;gap:10px;}
+    .tax-meta span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.20);font-weight:900;font-size:.92rem;}
+    .tax-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:24px;}
+    .tax-kpi{background:#fff;border-radius:var(--border-radius);box-shadow:var(--shadow);padding:20px;border:1px solid rgba(0,0,0,.04);transition:var(--transition);min-height:118px;}
+    .tax-kpi:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,.10);}
+    .tax-kpi .label{color:var(--text-light);font-size:.95rem;font-weight:800;margin-bottom:8px;}
+    .tax-kpi .value{color:var(--primary-color);font-size:1.55rem;line-height:1.35;font-weight:900;word-break:break-word;}
+    .tax-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start;}
+    .tax-stack{display:grid;gap:24px;}
+    .tax-card{background:#fff;border-radius:var(--border-radius);box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);overflow:hidden;}
+    .tax-card-body{padding:24px;}
+    .tax-card .card-head{border-bottom:1px solid rgba(0,0,0,.06);margin-bottom:0;}
+    .tax-card .card-head p{color:var(--text-light);font-weight:700;line-height:1.9;margin-top:6px;}
+    .tax-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .tax-field{display:flex;flex-direction:column;gap:8px;}
+    .tax-field.full{grid-column:1/-1;}
+    .tax-field label{color:var(--primary-color);font-weight:900;font-size:.98rem;}
+    .tax-field input,.tax-field select{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:13px 14px;font-size:1rem;outline:none;background:#fff;color:var(--text-color);font-weight:700;transition:var(--transition);}
+    .tax-field input:focus,.tax-field select:focus{border-color:var(--secondary-color);box-shadow:0 0 0 4px rgba(52,152,219,.12);}
+    .tax-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;}
+    .tax-note{margin-top:18px;padding:15px 16px;border-radius:12px;line-height:1.9;font-weight:700;background:rgba(52,152,219,.08);color:var(--primary-color);border:1px solid rgba(52,152,219,.18);}
+    .tax-note.warn{background:rgba(230,126,34,.10);border-color:rgba(230,126,34,.20);color:#8a4d09;}
+    .tax-summary{display:grid;gap:14px;}
+    .tax-result-box{border-radius:14px;padding:18px;border:1px solid rgba(0,0,0,.05);background:var(--light-bg);}
+    .tax-result-box.primary{background:rgba(52,152,219,.10);border-color:rgba(52,152,219,.18);}
+    .tax-result-box.orange{background:rgba(230,126,34,.10);border-color:rgba(230,126,34,.18);}
+    .tax-result-box.dark{background:rgba(44,62,80,.08);border-color:rgba(44,62,80,.14);}
+    .tax-result-box .label{color:var(--text-light);font-weight:800;margin-bottom:6px;}
+    .tax-result-box .value{color:var(--primary-color);font-weight:900;font-size:1.55rem;line-height:1.35;}
+    .tax-table-wrap{overflow:auto;border:1px solid rgba(0,0,0,.06);border-radius:14px;}
+    .tax-table{width:100%;border-collapse:collapse;background:#fff;min-width:680px;}
+    .tax-table th,.tax-table td{padding:13px 14px;border-bottom:1px solid rgba(0,0,0,.06);text-align:right;font-size:.96rem;font-weight:700;vertical-align:top;}
+    .tax-table th{background:var(--primary-color);color:#fff;font-weight:900;position:sticky;top:0;z-index:1;}
+    .tax-table tr:hover td{background:rgba(52,152,219,.04);}
+    .tax-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+    .tax-pill{background:rgba(230,126,34,.10);color:var(--accent-color);border:1px solid rgba(230,126,34,.18);padding:8px 13px;border-radius:999px;font-weight:900;font-size:.9rem;}
+    .tax-chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .tax-chart-box{background:var(--light-bg);border:1px solid rgba(0,0,0,.05);border-radius:14px;padding:16px;min-height:310px;}
+    .tax-chart-box h3{color:var(--primary-color);font-size:1rem;font-weight:900;margin-bottom:12px;}
+    .tax-chart-box canvas{width:100% !important;height:245px !important;}
+    .tax-report{line-height:2;color:var(--text-color);background:var(--light-bg);border:1px dashed rgba(44,62,80,.24);border-radius:14px;padding:18px;font-weight:700;white-space:pre-line;}
+    .nav-tax{background:var(--secondary-color);color:#fff !important;padding:10px 16px;border-radius:10px;font-weight:900;box-shadow:0 6px 16px rgba(52,152,219,.22);}
+    .nav-tax:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(52,152,219,.30);}
+    @media (max-width:980px){.tax-layout,.tax-kpis,.tax-chart-grid{grid-template-columns:1fr;}.tax-main{padding-top:105px;}}
+    @media (max-width:768px){.tax-hero{padding:24px 18px;}.tax-hero h1{font-size:1.65rem;}.tax-grid{grid-template-columns:1fr;}.tax-card-body{padding:18px;}.tax-result-box .value,.tax-kpi .value{font-size:1.25rem;}.tax-chart-box canvas{height:220px !important;}}
+    @media print{header,.tax-actions,footer,.nav-actions{display:none !important;}.tax-main{padding-top:0 !important;background:#fff !important;}.tax-hero,.tax-card,.tax-kpi{box-shadow:none !important;break-inside:avoid;}.tax-layout{grid-template-columns:1fr !important;}}
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container navbar">
+      <a class="logo" href="index.html" aria-label="العودة إلى بوابة الموارد البشرية">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        بوابة <span>الموارد البشرية</span>
+      </a>
+
+      <div class="nav-actions">
+        <a class="nav-link" href="index.html">الصفحة الرئيسية</a>
+        <a class="nav-link" href="index.html#announcements">الإعلانات</a>
+        <a class="nav-link" href="index.html#booking">حجز القاعات</a>
+        <a class="nav-link nav-tax" href="tax.html">احتساب الضريبة والضمان</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="tax-main">
+    <div class="container">
+      <section class="tax-hero">
+        <div class="tax-hero-content">
+          <h1>احتساب ضريبة الدخل والضمان الاجتماعي</h1>
+          <p>
+            صفحة مخصصة لقسم الموارد البشرية لاحتساب الضريبة والضمان بشكل واضح، مع ملخص تنفيذي،
+            جدول تفصيلي، رسوم توضيحية، ونص جاهز للاستخدام في التقارير أو الطباعة.
+          </p>
+          <div class="tax-meta">
+            <span>ضمن بوابة الموارد البشرية</span>
+            <span>جاهزة للطباعة / PDF</span>
+            <span>ملخص واضح للراتب والاستقطاعات</span>
+            <span>سقف الاحتساب الأعلى: 1,750,000 د.ع</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="tax-kpis">
+        <div class="tax-kpi"><div class="label">الضريبة الشهرية</div><div class="value" id="kpiMonthlyTax">0 د.ع</div></div>
+        <div class="tax-kpi"><div class="label">الضمان الاجتماعي</div><div class="value" id="kpiSocial">0 د.ع</div></div>
+        <div class="tax-kpi"><div class="label">مجموع الاستقطاعات</div><div class="value" id="kpiTotalDeduction">0 د.ع</div></div>
+        <div class="tax-kpi"><div class="label">الأشهر المحتسبة</div><div class="value" id="kpiMonths">0</div></div>
+      </section>
+
+      <div class="tax-layout">
+        <div class="tax-stack">
+          <section class="tax-card">
+            <div class="card-head">
+              <div><h3>المدخلات الأساسية</h3><p>أدخل بيانات الموظف ليتم احتساب الضريبة والضمان بشكل مباشر.</p></div>
+              <span class="badge">Inputs</span>
+            </div>
+            <div class="tax-card-body">
+              <div class="tax-grid">
+                <div class="tax-field"><label for="salary">الراتب الاسمي</label><input id="salary" type="number" min="0" step="any" value="" placeholder="مثال: 1250000"></div>
+                <div class="tax-field"><label for="maritalStatus">الحالة الاجتماعية</label><select id="maritalStatus"><option value="اعزب">اعزب</option><option value="متزوج">متزوج</option><option value="متزوجة">متزوجة</option></select></div>
+                <div class="tax-field"><label for="children">عدد الأبناء</label><input id="children" type="number" min="0" step="1" value="0"></div>
+                <div class="tax-field"><label for="startDate">تاريخ المباشرة</label><input id="startDate" type="date" value=""></div>
+                <div class="tax-field full"><label for="endDate">تاريخ الانفكاك</label><input id="endDate" type="date" value=""></div>
+              </div>
+              <div class="tax-actions">
+                <button class="btn btn-primary" type="button" onclick="calculateTax()">احسب الآن</button>
+                <button class="btn btn-dark" type="button" onclick="resetForm()">إفراغ الحقول</button>
+                <button class="btn btn-outline-dark" type="button" onclick="window.print()">طباعة / PDF</button>
+              </div>
+              <div class="tax-note">ملاحظة: إذا تُرك تاريخ الانفكاك فارغاً، سيتم الاحتساب حتى تاريخ اليوم. أما الضريبة والضمان فيتم احتسابهما على راتب لا يتجاوز 1,750,000 د.ع مهما كان الراتب المدخل أعلى من ذلك.</div>
+            </div>
+          </section>
+
+          <section class="tax-card">
+            <div class="card-head">
+              <div><h3>تفصيل بنود الاحتساب</h3><p>هذا الجدول يوضح كل العناصر التي بُنيت عليها النتيجة النهائية.</p></div>
+              <span class="badge">Breakdown</span>
+            </div>
+            <div class="tax-card-body">
+              <div class="tax-table-wrap">
+                <table class="tax-table">
+                  <thead><tr><th>البند</th><th>القيمة</th><th>ملاحظات</th></tr></thead>
+                  <tbody>
+                    <tr><td>الأشهر المسجلة بالضمان</td><td id="rMonths">0</td><td>عدد الأشهر المحسوبة للخدمة فقط</td></tr>
+                    <tr><td>الراتب المدخل</td><td id="rOriginalSalary">0 د.ع</td><td>الراتب كما تم إدخاله في الحقل</td></tr>
+                    <tr><td>الراتب المعتمد للاحتساب</td><td id="rCappedSalary">0 د.ع</td><td>الحد الأعلى المعتمد للضريبة والضمان هو 1,750,000 د.ع</td></tr>
+                    <tr><td>الراتب السنوي المعتمد</td><td id="rAnnualSalary">0 د.ع</td><td>الراتب المعتمد × 12 لغرض احتساب الضريبة الشهرية الثابتة</td></tr>
+                    <tr><td>سماح الحالة الاجتماعية</td><td id="rMaritalAllowance">0 د.ع</td><td id="rMaritalNote">حسب الحالة المختارة</td></tr>
+                    <tr><td>سماح الأبناء</td><td id="rChildrenAllowance">0 د.ع</td><td>200,000 سنوي لكل ابن</td></tr>
+                    <tr><td>مجموع السماحيات</td><td id="rTotalAllowance">0 د.ع</td><td>اجتماعية + أبناء</td></tr>
+                    <tr><td>الضمان الاجتماعي</td><td id="rSocial">0 د.ع</td><td>5% من الراتب المعتمد وبحد أقصى 87,500 د.ع شهرياً</td></tr>
+                    <tr><td>المبلغ الخاضع للضريبة</td><td id="rTaxable">0 د.ع</td><td>بعد السماحات والضمان</td></tr>
+                    <tr><td>الضريبة السنوية</td><td id="rAnnualTax">0 د.ع</td><td>حسب الشرائح التصاعدية</td></tr>
+                    <tr><td>الضريبة الشهرية</td><td id="rMonthlyTax">0 د.ع</td><td>تقريب الضريبة السنوية ثم قسمتها على 12 شهرًا</td></tr>
+                    <tr><td>مجموع الاستقطاعات</td><td id="rTotalDeduction">0 د.ع</td><td>الضمان الشهري + الضريبة الشهرية</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tax-pills">
+                <span class="tax-pill">أعزب: 2,500,000 سنوياً</span>
+                <span class="tax-pill">متزوج: 4,500,000 سنوياً</span>
+                <span class="tax-pill">متزوجة: 2,500,000 سنوياً</span>
+                <span class="tax-pill">الطفل: 200,000 سنوياً</span>
+                <span class="tax-pill">سقف الضريبة والضمان: 1,750,000 شهرياً</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="tax-stack">
+          <section class="tax-card">
+            <div class="card-head">
+              <div><h3>الملخص التنفيذي</h3><p>أرقام مختصرة وواضحة للاستخدام السريع.</p></div>
+              <span class="badge">Summary</span>
+            </div>
+            <div class="tax-card-body">
+              <div class="tax-summary">
+                <div class="tax-result-box primary"><div class="label">الضريبة الشهرية</div><div class="value" id="monthlyTax">0 د.ع</div></div>
+                <div class="tax-result-box orange"><div class="label">الضمان الاجتماعي</div><div class="value" id="socialSecurity">0 د.ع</div></div>
+                <div class="tax-result-box dark"><div class="label">مجموع الاستقطاعات</div><div class="value" id="totalDeduction">0 د.ع</div></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="tax-card">
+            <div class="card-head">
+              <div><h3>الرسوم التوضيحية</h3><p>عرض بصري للضريبة والضمان وعناصر الاحتساب.</p></div>
+              <span class="badge">Charts</span>
+            </div>
+            <div class="tax-card-body">
+              <div class="tax-chart-grid">
+                <div class="tax-chart-box"><h3>الضريبة الشهرية مقابل الضمان الشهري</h3><canvas id="deductionChart"></canvas></div>
+                <div class="tax-chart-box"><h3>توزيع عناصر الاحتساب</h3><canvas id="componentsChart"></canvas></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="tax-card">
+            <div class="card-head">
+              <div><h3>النص التنفيذي الجاهز</h3><p>يمكن نسخه مباشرة في الإيميل أو التقرير أو العرض.</p></div>
+              <span class="badge">Report</span>
+            </div>
+            <div class="tax-card-body">
+              <div id="reportText" class="tax-report">قم بإدخال البيانات ثم اضغط على "احسب الآن".</div>
+              <div class="tax-note warn">الشرائح الضريبية المستخدمة هنا مطابقة لهيكل ملف الإكسل: 3% ثم 5% ثم 10% ثم 15% مع حدود تراكمية ثابتة.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-mini">
+        <div class="item">📌 بوابة الموارد البشرية</div>
+        <div class="item">🧾 صفحة احتساب الضريبة والضمان</div>
+        <div class="item"><a href="index.html">العودة للصفحة الرئيسية</a></div>
+      </div>
+      <div class="copyright"><p>جميع الحقوق محفوظة &copy; <span id="year"></span> قسم الموارد البشرية.</p></div>
+    </div>
+  </footer>
+
+  <script>
+
+    const ALLOWANCES = {
+      'اعزب': 2500000,
+      'متزوج': 4500000,
+      'متزوجة': 2500000
+    };
+    const CHILD_ALLOWANCE_ANNUAL = 200000;
+    const SOCIAL_RATE = 0.05;
+    const SALARY_CAP = 1750000;
+
+    let deductionChart = null;
+    let componentsChart = null;
+
+    function getNum(id){
+      const raw = document.getElementById(id).value;
+      if(raw === '') return 0;
+      const v = parseFloat(raw);
+      return Number.isFinite(v) ? v : 0;
+    }
+
+    function getText(id){ return document.getElementById(id).value; }
+
+    function setText(id, value){ const el = document.getElementById(id); if(el) el.textContent = value; }
+    function setWidth(id, value){ document.getElementById(id).style.width = Math.max(0, Math.min(100, value)) + '%'; }
+
+    function formatIQD(num){
+      return new Intl.NumberFormat('en-US', {maximumFractionDigits:0}).format(Math.round(num)) + ' د.ع';
+    }
+
+    function formatPct(num){
+      return (Number.isFinite(num) ? num : 0).toFixed(1) + '%';
+    }
+
+    function pctOf(part, total){ return total > 0 ? (part / total) * 100 : 0; }
+
+    function monthsDiff(startDate, endDate){
+      if(!startDate) return 0;
+      const s = new Date(startDate);
+      const e = endDate ? new Date(endDate) : new Date();
+      if(Number.isNaN(s.getTime()) || Number.isNaN(e.getTime())) return 0;
+      return (e.getMonth() - s.getMonth()) + ((e.getFullYear() - s.getFullYear()) * 12);
+    }
+
+    function annualTaxByBrackets(taxable){
+      if(taxable <= 0) return 0;
+      if(taxable < 250000) return taxable * 0.03;
+      if(taxable < 500000) return ((taxable - 250000) * 0.05) + 7500;
+      if(taxable < 1000000) return ((taxable - 500000) * 0.10) + 20000;
+      return ((taxable - 1000000) * 0.15) + 70000;
+    }
+
+    function destroyCharts(){
+      if(deductionChart){ deductionChart.destroy(); deductionChart = null; }
+      if(componentsChart){ componentsChart.destroy(); componentsChart = null; }
+    }
+
+    function renderCharts(monthlyTax, socialSecurity, totalAllowance, taxableIncome, annualSalary){
+      if(typeof Chart === 'undefined') return;
+      destroyCharts();
+
+      deductionChart = new Chart(document.getElementById('deductionChart'), {
+        type: 'bar',
+        data: {
+          labels: ['الضريبة الشهرية', 'الضمان الاجتماعي'],
+          datasets: [{
+            data: [monthlyTax, socialSecurity],
+            backgroundColor: ['#e67e22', '#3498db'],
+            borderRadius: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      componentsChart = new Chart(document.getElementById('componentsChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['الراتب السنوي المحتسب', 'مجموع السماحيات', 'المبلغ الخاضع للضريبة'],
+          datasets: [{
+            data: [Math.max(annualSalary,0), Math.max(totalAllowance,0), Math.max(taxableIncome,0)],
+            backgroundColor: ['#3498db', '#e67e22', '#2c3e50'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '62%',
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+    }
+
+    function calculateTax(){
+      const salary = getNum('salary');
+      const cappedSalary = Math.min(Math.max(salary, 0), SALARY_CAP);
+      const status = getText('maritalStatus');
+      const children = Math.max(0, Math.floor(getNum('children')));
+      const startDate = getText('startDate');
+      const endDate = getText('endDate');
+
+      const months = monthsDiff(startDate, endDate);
+
+      const annualSalary = cappedSalary * 12;
+      const maritalAllowance = (ALLOWANCES[status] || 0);
+      const childrenAllowance = children * CHILD_ALLOWANCE_ANNUAL;
+      const totalAllowance = maritalAllowance + childrenAllowance;
+      const socialSecurityAnnual = cappedSalary * SOCIAL_RATE * 12;
+      const socialSecurityMonthly = cappedSalary * SOCIAL_RATE;
+      const taxableIncome = annualSalary - maritalAllowance - socialSecurityAnnual - childrenAllowance;
+      const annualTax = annualTaxByBrackets(taxableIncome);
+      const monthlyTax = Math.round(annualTax) / 12;
+      const totalDeduction = socialSecurityMonthly + monthlyTax;
+
+      setText('monthlyTax', formatIQD(monthlyTax));
+      setText('socialSecurity', formatIQD(socialSecurityMonthly));
+      setText('totalDeduction', formatIQD(totalDeduction));
+
+      setText('kpiMonthlyTax', formatIQD(monthlyTax));
+      setText('kpiSocial', formatIQD(socialSecurityMonthly));
+      setText('kpiTotalDeduction', formatIQD(totalDeduction));
+      setText('kpiMonths', String(months));
+
+      setText('rMonths', String(months));
+      setText('rOriginalSalary', formatIQD(salary));
+      setText('rCappedSalary', formatIQD(cappedSalary));
+      setText('rAnnualSalary', formatIQD(annualSalary));
+      setText('rMaritalAllowance', formatIQD(maritalAllowance));
+      setText('rChildrenAllowance', formatIQD(childrenAllowance));
+      setText('rTotalAllowance', formatIQD(totalAllowance));
+      setText('rSocial', formatIQD(socialSecurityAnnual));
+      setText('rTaxable', formatIQD(taxableIncome));
+      setText('rAnnualTax', formatIQD(annualTax));
+      setText('rMonthlyTax', formatIQD(monthlyTax));
+      setText('rTotalDeduction', formatIQD(totalDeduction));
+      setText('rMaritalNote', `الحالة: ${status} | تم اعتماد سقف راتب ${formatIQD(SALARY_CAP)} للضريبة والضمان`);
+
+      renderCharts(monthlyTax, socialSecurityMonthly, totalAllowance, taxableIncome, annualSalary);
+
+      const report = `تشير نتائج الاحتساب إلى أن مدة الخدمة المدخلة تبلغ ${months} شهر/أشهر، لكن الضريبة الشهرية تم احتسابها على أساس الراتب الشهري الثابت وليس بتوزيع الضريبة على مدة الخدمة.
+
+الراتب المدخل هو ${formatIQD(salary)}، والراتب الشهري المعتمد للاحتساب هو ${formatIQD(cappedSalary)} كحد أقصى، لذلك بلغ الراتب السنوي المعتمد لغرض الضريبة ${formatIQD(annualSalary)}،
+في حين بلغ سماح الحالة الاجتماعية ${formatIQD(maritalAllowance)}،
+وسماح الأبناء ${formatIQD(childrenAllowance)}،
+ليصبح مجموع السماحيات ${formatIQD(totalAllowance)}.
+
+كما بلغ الضمان الاجتماعي السنوي المعتمد ${formatIQD(socialSecurityAnnual)}،
+ووصل المبلغ الخاضع للضريبة إلى ${formatIQD(taxableIncome)}.
+
+وبناءً على الشرائح الضريبية المعتمدة، فإن الضريبة السنوية تبلغ ${formatIQD(annualTax)}،
+أما الضريبة الشهرية فتبلغ ${formatIQD(monthlyTax)}،
+في حين يبلغ الضمان الاجتماعي الشهري ${formatIQD(socialSecurityMonthly)}.
+
+وعليه فإن مجموع الاستقطاعات الشهرية النهائية يبلغ ${formatIQD(totalDeduction)}.`;
+
+      setText('reportText', report);
+    }
+
+    function resetForm(){
+      document.getElementById('salary').value = '';
+      document.getElementById('maritalStatus').value = 'اعزب';
+      document.getElementById('children').value = '0';
+      document.getElementById('startDate').value = '';
+      document.getElementById('endDate').value = '';
+
+      ['monthlyTax','socialSecurity','totalDeduction','kpiMonthlyTax','kpiSocial','kpiTotalDeduction'].forEach(id => setText(id, '0 د.ع'));
+      setText('kpiMonths', '0');
+      ['rAnnualSalary','rMaritalAllowance','rChildrenAllowance','rTotalAllowance','rSocial','rTaxable','rAnnualTax','rMonthlyTax','rTotalDeduction'].forEach(id => setText(id, '0 د.ع'));
+      setText('rMonths', '0');
+      setText('rMaritalNote', 'حسب الحالة المختارة');
+
+      setText('reportText', 'قم بإدخال البيانات ثم اضغط على "احسب الآن".');
+      destroyCharts();
+    }
+  
+  </script>
+  <script>
+    const header = document.getElementById("header");
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    window.addEventListener("scroll", () => {
+      if (!header) return;
+      if (window.scrollY > 50) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    });
+  </script>
+</body>
+</html>

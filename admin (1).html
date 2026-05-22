@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بوابة الأدمن</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container admin-topbar">
+      <div>
+        <h1>بوابة الأدمن</h1>
+        <p>صفحة مخصصة لبطاقات وروابط ومواضيع الإدارة.</p>
+      </div>
+      <div class="admin-top-actions">
+        <a href="index.html" class="btn btn-primary">العودة للموقع</a>
+        <button class="btn btn-dark" type="button" onclick="logoutAdmin()">تسجيل الخروج</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-main">
+    <section class="admin-section">
+      <div class="section-title">
+        <h2>بطاقات الإدارة</h2>
+        <p>في حال احتجت لأي شيء ولم تجده اتصل بالرقم التالي 07735796995</p>
+      </div>
+
+      <div class="cards-grid" id="adminCardsList"></div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

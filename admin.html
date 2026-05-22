@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بوابة الأدمن | الموارد البشرية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <header class="admin-header">
+    <div class="container admin-topbar">
+      <div>
+        <h1>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          بوابة <span>الأدمن</span>
+        </h1>
+        <p>صفحة مخصصة لبطاقات وروابط ومواضيع الإدارة.</p>
+      </div>
+      <div class="admin-top-actions">
+        <a href="index.html" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          العودة للموقع
+        </a>
+        <button class="btn btn-dark" type="button" onclick="logoutAdmin()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          تسجيل الخروج
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-main">
+    <section class="admin-section">
+      <div class="section-title">
+        <h2>بطاقات الإدارة</h2>
+        <p>في حال احتجت لأي شيء ولم تجده اتصل بالرقم التالي 07735796995</p>
+      </div>
+      <div class="cards-grid" id="adminCardsList"></div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
